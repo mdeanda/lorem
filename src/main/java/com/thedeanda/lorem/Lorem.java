@@ -26,8 +26,28 @@ public class Lorem {
 		return instance.getRandom(instance.firstNames);
 	}
 
+	public static String getFirstNameMale() {
+		return instance.getRandom(instance.maleNames);
+	}
+
+	public static String getFirstNameFemale() {
+		return instance.getRandom(instance.femaleNames);
+	}
+
 	public static String getLastName() {
 		return instance.getRandom(instance.surnames);
+	}
+
+	public static String getName() {
+		return getFirstName() + " " + getLastName();
+	}
+
+	public static String getNameMale() {
+		return getFirstNameMale() + " " + getLastName();
+	}
+
+	public static String getNameFemale() {
+		return getFirstNameFemale() + " " + getLastName();
 	}
 
 	public static String getTitle(int count) {
@@ -192,20 +212,20 @@ public class Lorem {
 
 	private String _getPhone() {
 		StringBuilder sb = new StringBuilder();
-		
+
 		sb.append("(");
 		sb.append(random.nextInt(9) + 1);
 		for (int i = 0; i < 2; i++) {
 			sb.append(random.nextInt(10));
 		}
 		sb.append(") ");
-		
+
 		sb.append(random.nextInt(9) + 1);
 		for (int i = 0; i < 2; i++) {
 			sb.append(random.nextInt(10));
 		}
 		sb.append("-");
-		
+
 		for (int i = 0; i < 4; i++) {
 			sb.append(random.nextInt(10));
 		}
