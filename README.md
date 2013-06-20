@@ -1,11 +1,29 @@
 lorem
 =====
 
-An extremely useful Lorem Ipsum generator!
+An extremely useful Lorem Ipsum generator for Java!
 
-### sample usage:
+### Sample Usage:
 
-##### names
+##### Words
+
+```java
+Lorem.getWords(5, 10);
+```
+Randomly generates between 5 and 10 words.
+
+```java
+Lorem.getParagraphs(2, 4);
+```
+Randomly generates between 2 and 4 paragraphs.
+
+```java
+Lorem.getTitle(2, 4);
+```
+Randomly generates a title of 2 to 4 words.
+
+
+##### Names
 
 ```java
 Lorem.getFirstName();
@@ -19,7 +37,7 @@ Generates a random last name.
 
 
 
-##### phone numbers
+##### Phone Numbers
 
 ```java
 Lorem.getPhone();
