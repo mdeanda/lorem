@@ -18,12 +18,32 @@ Lorem.getParagraphs(2, 4);
 Randomly generates between 2 and 4 paragraphs.
 
 ```java
+Lorem.getHtmlParagraphs(2, 4);
+```
+Randomly generates between 2 and 4 paragraphs wrapped in <p> tags.
+
+```java
 Lorem.getTitle(2, 4);
 ```
 Randomly generates a title of 2 to 4 words.
 
 
 ##### Names
+
+```java
+Lorem.getName();
+```
+Generates a random name.
+
+```java
+Lorem.getNameFemale();
+```
+Generates a random female name.
+
+```java
+Lorem.getNameMale();
+```
+Generates a random male name.
 
 ```java
 Lorem.getFirstName();
