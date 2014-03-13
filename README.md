@@ -20,7 +20,7 @@ Randomly generates between 2 and 4 paragraphs.
 ```java
 Lorem.getHtmlParagraphs(2, 4);
 ```
-Randomly generates between 2 and 4 paragraphs wrapped in <p> tags.
+Randomly generates between 2 and 4 paragraphs wrapped in &lt;p&gt; tags.
 
 ```java
 Lorem.getTitle(2, 4);
