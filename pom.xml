@@ -18,11 +18,18 @@
 		</license>
 	</licenses>
 	<scm>
-		<url>https://github.com/mdeanda/lorem</url>
+		<connection>scm:git:git@github.com:mdeanda/lorem.git</connection>
+		<developerConnection>scm:git:git@github.com:mdeanda/lorem.git</developerConnection>
+		<url>git@github.com:mdeanda/lorem.git</url>
 	</scm>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
+	<parent>
+		<groupId>org.sonatype.oss</groupId>
+		<artifactId>oss-parent</artifactId>
+		<version>7</version>
+	</parent>
 	<distributionManagement>
 		<snapshotRepository>
 			<id>sonatype-nexus-snapshots</id>
