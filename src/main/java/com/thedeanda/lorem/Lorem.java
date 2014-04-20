@@ -17,6 +17,8 @@ public class Lorem {
 	private List<String> femaleNames;
 	private List<String> surnames;
 	private List<String> firstNames;
+	private List<String> stateAbbr;
+	private List<String> stateFull;
 
 	public static String getPhone() {
 		return instance._getPhone();
@@ -74,6 +76,18 @@ public class Lorem {
 		return instance._getParagraphs(min, max);
 	}
 
+	public static String getStateAbbr() {
+		return instance._getStateAbbr();
+	}
+
+	public static String getStateFull() {
+		return instance._getStateFull();
+	}
+
+	public static String getZipCode() {
+		return instance._getZipCode();
+	}
+
 	private Lorem() {
 		readLorem();
 		maleNames = readLines("male_names.txt");
@@ -82,6 +96,9 @@ public class Lorem {
 		firstNames = new ArrayList<String>();
 		firstNames.addAll(maleNames);
 		firstNames.addAll(femaleNames);
+
+		stateAbbr = readLines("state_abbr.txt");
+		stateFull = readLines("state_full.txt");
 	}
 
 	private void readLorem() {
@@ -227,6 +244,22 @@ public class Lorem {
 		sb.append("-");
 
 		for (int i = 0; i < 4; i++) {
+			sb.append(random.nextInt(10));
+		}
+		return sb.toString();
+	}
+
+	private String _getStateAbbr() {
+		return getRandom(stateAbbr);
+	}
+
+	private String _getStateFull() {
+		return getRandom(stateFull);
+	}
+
+	private String _getZipCode() {
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < 5; i++) {
 			sb.append(random.nextInt(10));
 		}
 		return sb.toString();
