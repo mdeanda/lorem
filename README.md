@@ -63,3 +63,14 @@ Generates a random last name.
 Lorem.getPhone();
 ```
 Generates a phone number in the form: `(800) 555-1212`
+
+### Installation:
+
+You can get the latest release via maven.
+
+	<dependency>
+		<groupId>com.thedeanda</groupId>
+		<artifactId>lorem</artifactId>
+		<version>1.1</version>
+	</dependency>
+
