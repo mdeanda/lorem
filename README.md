@@ -72,7 +72,7 @@ You can get the latest release via maven.
 <dependency>
 	<groupId>com.thedeanda</groupId>
 	<artifactId>lorem</artifactId>
-	<version>1.1</version>
+	<version>1.2</version>
 </dependency>
 ```
 
