@@ -1,0 +1,16 @@
+apply plugin: 'java'
+apply plugin: 'maven'
+apply plugin: 'eclipse'
+
+group = 'com.thedeanda'
+version = '2.0-snapshot'
+
+repositories {
+	mavenCentral()
+	mavenLocal()
+}
+
+dependencies {
+	compile 'junit:junit:4.11'
+}
+
