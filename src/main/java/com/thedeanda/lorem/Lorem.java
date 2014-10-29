@@ -11,7 +11,7 @@ import java.util.Set;
 
 public class Lorem {
 	private List<String> words = new ArrayList<String>();
-	private Random random = new Random();
+	private Random random = null;
 	private List<String> maleNames;
 	private List<String> femaleNames;
 	private List<String> surnames;
@@ -20,6 +20,10 @@ public class Lorem {
 	private List<String> stateFull;
 
 	public Lorem() {
+		this(new Random());
+	}
+
+	public Lorem(Random random) {
 		readLorem();
 		maleNames = readLines("male_names.txt");
 		femaleNames = readLines("female_names.txt");
@@ -90,6 +94,42 @@ public class Lorem {
 		return ret;
 	}
 
+	public String getFirstName() {
+		return getRandom(firstNames);
+	}
+
+	public String getFirstNameMale() {
+		return getRandom(maleNames);
+	}
+
+	public String getFirstNameFemale() {
+		return getRandom(femaleNames);
+	}
+
+	public String getLastName() {
+		return getRandom(surnames);
+	}
+
+	public String getName() {
+		return getFirstName() + " " + getLastName();
+	}
+
+	public String getNameMale() {
+		return getFirstNameMale() + " " + getLastName();
+	}
+
+	public String getNameFemale() {
+		return getFirstNameFemale() + " " + getLastName();
+	}
+
+	public String getTitle(int count) {
+		return getWords(count, count, true);
+	}
+
+	public String getTitle(int min, int max) {
+		return getWords(min, max, true);
+	}
+
 	private int getCount(int min, int max) {
 		if (min < 0)
 			min = 0;
@@ -129,12 +169,20 @@ public class Lorem {
 		return sb.toString().trim();
 	}
 
-	public String getWords(int min, int max, boolean title) {
+	private String getWords(int min, int max, boolean title) {
 		int count = getCount(min, max);
 		return getWords(count, title);
 	}
 
-	public String getWords(int count, boolean title) {
+	public String getWords(int count) {
+		return getWords(count, count, false);
+	}
+
+	public String getWords(int min, int max) {
+		return getWords(min, max, false);
+	}
+
+	private String getWords(int count, boolean title) {
 		StringBuilder sb = new StringBuilder();
 		int size = words.size();
 		int wordCount = 0;
