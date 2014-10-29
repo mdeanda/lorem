@@ -24,6 +24,7 @@ public class Lorem {
 	}
 
 	public Lorem(Random random) {
+		this.random = random;
 		readLorem();
 		maleNames = readLines("male_names.txt");
 		femaleNames = readLines("female_names.txt");
