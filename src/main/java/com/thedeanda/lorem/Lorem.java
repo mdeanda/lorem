@@ -18,6 +18,7 @@ public class Lorem {
 	private List<String> firstNames;
 	private List<String> stateAbbr;
 	private List<String> stateFull;
+	private List<String> cities;
 
 	public Lorem() {
 		this(new Random());
@@ -33,6 +34,7 @@ public class Lorem {
 		firstNames.addAll(maleNames);
 		firstNames.addAll(femaleNames);
 
+		cities = readLines("cities.txt");
 		stateAbbr = readLines("state_abbr.txt");
 		stateFull = readLines("state_full.txt");
 	}
@@ -76,7 +78,7 @@ public class Lorem {
 		BufferedReader br = null;
 		try {
 			br = new BufferedReader(new InputStreamReader(getClass()
-					.getResourceAsStream(file)));
+					.getResourceAsStream(file), "UTF-8"));
 			String line;
 			while ((line = br.readLine()) != null) {
 				ret.add(line.trim());
@@ -95,6 +97,10 @@ public class Lorem {
 		return ret;
 	}
 
+	public String getCity() {
+		return getRandom(cities);
+	}
+	
 	public String getFirstName() {
 		return getRandom(firstNames);
 	}
