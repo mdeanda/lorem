@@ -28,6 +28,8 @@ public interface Lorem {
 
 	public String getParagraphs(int min, int max);
 
+	public String getUrl();
+	
 	public String getWords(int count);
 
 	public String getWords(int min, int max);

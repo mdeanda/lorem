@@ -19,6 +19,10 @@ public class LoremIpsum implements Lorem {
 	private List<String> stateAbbr;
 	private List<String> stateFull;
 	private List<String> cities;
+	private String[] URL_HOSTS = new String[] { "https://www.google.com/#q=%s",
+			"http://www.bing.com/search?q=%s",
+			"https://search.yahoo.com/search?p=%s",
+			"https://duckduckgo.com/?q=%s" };
 
 	public LoremIpsum() {
 		this(new Random());
@@ -263,6 +267,20 @@ public class LoremIpsum implements Lorem {
 			sb.append("\n");
 		}
 		return sb.toString().trim();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.thedeanda.lorem.Lorem#getUrl()
+	 */
+	@Override
+	public String getUrl() {
+		StringBuilder sb = new StringBuilder();
+		int hostId = random.nextInt(URL_HOSTS.length);
+		String host = String.format(URL_HOSTS[hostId], getWords(1));
+		sb.append(host);
+		return sb.toString();
 	}
 
 	private String getWords(int min, int max, boolean title) {
