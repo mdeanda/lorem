@@ -3,6 +3,8 @@ package com.thedeanda.lorem;
 public interface Lorem {
 
 	public String getCity();
+	
+	public String getCountry();
 
 	public String getEmail();
 

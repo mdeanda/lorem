@@ -10,6 +10,8 @@ import java.util.Random;
 import java.util.Set;
 
 public class LoremIpsum implements Lorem {
+	private static LoremIpsum instance;
+
 	private List<String> words = new ArrayList<String>();
 	private Random random = null;
 	private List<String> maleNames;
@@ -19,17 +21,26 @@ public class LoremIpsum implements Lorem {
 	private List<String> stateAbbr;
 	private List<String> stateFull;
 	private List<String> cities;
+	private List<String> countries;
+
 	private String[] URL_HOSTS = new String[] { "https://www.google.com/#q=%s",
 			"http://www.bing.com/search?q=%s",
 			"https://search.yahoo.com/search?p=%s",
 			"https://duckduckgo.com/?q=%s" };
 
-	public LoremIpsum() {
-		this(new Random());
+	public static LoremIpsum getInstance() {
+		if (instance == null) {
+			synchronized (LoremIpsum.class) {
+				if (instance == null) {
+					instance = new LoremIpsum();
+				}
+			}
+		}
+		return instance;
 	}
 
-	public LoremIpsum(Random random) {
-		this.random = random;
+	private LoremIpsum() {
+		this.random = new Random();
 		readLorem();
 		maleNames = readLines("male_names.txt");
 		femaleNames = readLines("female_names.txt");
@@ -41,6 +52,7 @@ public class LoremIpsum implements Lorem {
 		cities = readLines("cities.txt");
 		stateAbbr = readLines("state_abbr.txt");
 		stateFull = readLines("state_full.txt");
+		countries = readLines("countries.txt");
 	}
 
 	private void readLorem() {
@@ -109,6 +121,16 @@ public class LoremIpsum implements Lorem {
 	@Override
 	public String getCity() {
 		return getRandom(cities);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.thedeanda.lorem.Lorem#getCountry()
+	 */
+	@Override
+	public String getCountry() {
+		return getRandom(countries);
 	}
 
 	/*
