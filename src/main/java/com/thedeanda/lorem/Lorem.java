@@ -2,40 +2,42 @@ package com.thedeanda.lorem;
 
 public interface Lorem {
 
-	public abstract String getCity();
+	public String getCity();
 
-	public abstract String getFirstName();
+	public String getEmail();
 
-	public abstract String getFirstNameMale();
+	public String getFirstName();
 
-	public abstract String getFirstNameFemale();
+	public String getFirstNameMale();
 
-	public abstract String getLastName();
+	public String getFirstNameFemale();
 
-	public abstract String getName();
+	public String getLastName();
 
-	public abstract String getNameMale();
+	public String getName();
 
-	public abstract String getNameFemale();
+	public String getNameMale();
 
-	public abstract String getTitle(int count);
+	public String getNameFemale();
 
-	public abstract String getTitle(int min, int max);
+	public String getTitle(int count);
 
-	public abstract String getHtmlParagraphs(int min, int max);
+	public String getTitle(int min, int max);
 
-	public abstract String getParagraphs(int min, int max);
+	public String getHtmlParagraphs(int min, int max);
 
-	public abstract String getWords(int count);
+	public String getParagraphs(int min, int max);
 
-	public abstract String getWords(int min, int max);
+	public String getWords(int count);
 
-	public abstract String getPhone();
+	public String getWords(int min, int max);
 
-	public abstract String getStateAbbr();
+	public String getPhone();
 
-	public abstract String getStateFull();
+	public String getStateAbbr();
 
-	public abstract String getZipCode();
+	public String getStateFull();
+
+	public String getZipCode();
 
 }

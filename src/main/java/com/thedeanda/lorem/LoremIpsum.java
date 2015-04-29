@@ -110,6 +110,23 @@ public class LoremIpsum implements Lorem {
 	/*
 	 * (non-Javadoc)
 	 * 
+	 * @see com.thedeanda.lorem.Lorem#getEmail()
+	 */
+	@Override
+	public String getEmail() {
+		StringBuilder sb = new StringBuilder();
+
+		sb.append(getFirstName().toLowerCase());
+		sb.append(".");
+		sb.append(getLastName().toLowerCase());
+		sb.append("@example.com");
+
+		return sb.toString();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.thedeanda.lorem.Lorem#getFirstName()
 	 */
 	@Override
