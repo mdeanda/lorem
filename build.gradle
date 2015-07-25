@@ -11,23 +11,40 @@ buildscript {
 	}
 }
 
-apply plugin: 'java'
 apply plugin: 'maven'
+apply plugin: 'java'
+apply plugin: 'jacoco'
 apply plugin: 'eclipse'
+apply plugin: 'maven-publish'
 apply plugin: 'com.jfrog.artifactory-upload'
+apply plugin: 'pmd'
+apply plugin: 'findbugs'
 
 group = 'com.thedeanda'
-version = '2.0-SNAPSHOT'
+version = '2.0'
+description = "a lorem ipsum generator"
+
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
 
 repositories {
 	mavenCentral()
 	mavenLocal()
 }
-
-dependencies {
-	testCompile 'junit:junit:4.11'
+configurations {
+	published
 }
-
+task sourceJar(type: Jar) {
+	from sourceSets.main.allSource
+	classifier = 'sources'
+}
+task javadocJar(type: Jar, dependsOn: javadoc) {
+	classifier = 'javadoc'
+	from javadoc.destinationDir
+}
+artifactoryPublish {
+	dependsOn sourceJar, javadocJar
+}
 artifactory {
 	contextUrl = "${artifactory_contextUrl}"
 	publish {
@@ -41,7 +58,7 @@ artifactory {
 			password = "${artifactory_password}" //The publisher password
 		}
 		defaults {
-			//publishConfigs('archives', 'published')
+			publishConfigs('archives', 'published')
 			//properties = ['build.status': "$it.project.status".toString()]
 			publishPom = true //Publish generated POM files to Artifactory (true by default)
 			publishIvy = false //Publish generated Ivy descriptor files to Artifactory (true by default)
@@ -56,4 +73,55 @@ artifactory {
 		}
 	}
 
+}
+jacocoTestReport {
+	reports {
+		xml.enabled false
+		csv.enabled false
+		html.destination "${buildDir}/jacocoHtml"
+	}
+}
+pmd {
+	ignoreFailures = true
+	reportsDir = file('build/docs/pmd')
+}
+findbugs {
+	ignoreFailures = true
+	reportsDir = file('build/docs/findbugs')
+	toolVersion = '3.0.1'
+}
+findbugsMain {
+	reports {
+		xml.enabled = false
+		html.enabled = true
+	}
+}
+task copyCoverageReport(type: Copy) {
+	from 'build/jacocoHtml'
+	into 'build/docs/jacoco'
+}
+copyCoverageReport.dependsOn jacocoTestReport
+
+task copyTest(type: Copy) {
+	from 'build/reports/tests'
+	into 'build/docs/tests'
+}
+copyTest.dependsOn test
+
+task docJar(type: Jar) {
+	classifier = 'doc'
+	from 'build/docs'
+}
+docJar.dependsOn javadoc, copyTest, copyCoverageReport, check
+artifactoryPublish {
+	dependsOn docJar
+}
+artifacts {
+	//published sourceJar
+	//published javadocJar
+	published docJar
+}
+
+dependencies {
+	testCompile 'junit:junit:4.+'
 }
