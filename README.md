@@ -65,6 +65,38 @@ lorem.getPhone();
 ```
 Generates a phone number in the form: `(800) 555-1212`
 
+
+
+##### Locations
+
+```java
+lorem.getCity();
+```
+Generates a city name.
+
+```java
+lorem.getStateFull();
+```
+Generates a state name.
+
+```java
+lorem.getStateAbbr();
+```
+Generates a 2 letter state abbreviation.
+
+```java
+lorem.getZipCode();
+```
+Generates a 5-digit zip code
+
+```java
+lorem.getCountry();
+```
+Generates a country name
+
+
+
+
 ### Installation:
 
 You can get the latest release via maven.
@@ -76,4 +108,9 @@ You can get the latest release via maven.
 	<version>2.0</version>
 </dependency>
 ```
+
+```
+compile 'com.thedeanda:lorem:2.0'
+```
+
 
