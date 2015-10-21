@@ -5,7 +5,7 @@ An extremely useful Lorem Ipsum generator for Java!
 
 ### Sample Usage:
 
-##### Words
+#### Words
 
 ```java
 Lorem lorem = new LoremIpsum();
