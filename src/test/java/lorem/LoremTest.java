@@ -81,6 +81,10 @@ public class LoremTest {
 		String words1 = lorem.getWords(4, 5);
 		assertNotNull(words1);
 		assertNotEquals("", words1.trim());
+		String[] wordsplit = words1.split(" ");
+		assertNotNull(wordsplit);
+		assertTrue(wordsplit.length >= 4);
+		assertTrue(wordsplit.length <= 4);
 
 		assertNotEquals(words0, words1);
 	}

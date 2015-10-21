@@ -4,10 +4,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
-import java.util.Set;
 
 /**
  * The MIT License (MIT)
@@ -33,8 +31,16 @@ import java.util.Set;
  * SOFTWARE.
  * 
  * @author mdeanda
+ * 
  */
 public class LoremIpsum implements Lorem {
+	/*
+	 * this command was useful:
+	 * 
+	 * cat lorem.txt | sed -e 's/[,;.]//g' | sed -e 's/ /\n/g' | sed -e \
+	 * 'y/ABCDEFGHIJKLMNOPQRSTUVWXYZ/abcdefghijklmnopqrstuvwxyz/' | sort | \
+	 * uniq > lorem.txt.2
+	 */
 	private static LoremIpsum instance;
 
 	private List<String> words = new ArrayList<String>();
@@ -66,7 +72,7 @@ public class LoremIpsum implements Lorem {
 
 	private LoremIpsum() {
 		this.random = new Random();
-		readLorem();
+		words = readLines("lorem.txt");
 		maleNames = readLines("male_names.txt");
 		femaleNames = readLines("female_names.txt");
 		surnames = readLines("surnames.txt");
@@ -78,40 +84,6 @@ public class LoremIpsum implements Lorem {
 		stateAbbr = readLines("state_abbr.txt");
 		stateFull = readLines("state_full.txt");
 		countries = readLines("countries.txt");
-	}
-
-	private void readLorem() {
-		StringBuilder lines = new StringBuilder();
-		BufferedReader br = null;
-		try {
-			br = new BufferedReader(new InputStreamReader(getClass()
-					.getResourceAsStream("lorem.txt")));
-			String line;
-			while ((line = br.readLine()) != null) {
-				lines.append(line);
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			if (br != null) {
-				try {
-					br.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-
-		String[] w = lines.toString().split("\\s");
-		// use set here to remove duplicates
-		Set<String> words = new HashSet<String>();
-		for (String word : w) {
-			word = word.replaceAll(",", "");
-			word = word.replaceAll("\\.", "");
-			word = word.toLowerCase();
-			words.add(word);
-		}
-		this.words.addAll(words);
 	}
 
 	private List<String> readLines(String file) {
