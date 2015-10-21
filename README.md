@@ -3,12 +3,20 @@ lorem
 
 An extremely useful Lorem Ipsum generator for Java!
 
+### Getting Started:
+
+```java
+Lorem lorem = LoremIpsum.getInstance();
+```
+lorem is an interface to leave room for alternative implementations because we can never have enough lorem!
+
+
+
 ### Sample Usage:
 
 #### Words
 
 ```java
-Lorem lorem = new LoremIpsum();
 lorem.getWords(5, 10);
 ```
 Randomly generates between 5 and 10 words.
