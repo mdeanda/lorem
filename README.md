@@ -29,7 +29,7 @@ lorem.getTitle(2, 4);
 Randomly generates a title of 2 to 4 words.
 
 
-##### Names
+#### Names
 
 ```java
 lorem.getName();
@@ -58,7 +58,7 @@ Generates a random last name.
 
 
 
-##### Phone Numbers
+#### Phone Numbers
 
 ```java
 lorem.getPhone();
@@ -67,7 +67,7 @@ Generates a phone number in the form: `(800) 555-1212`
 
 
 
-##### Locations
+#### Locations
 
 ```java
 lorem.getCity();
@@ -109,7 +109,7 @@ You can get the latest release via maven.
 </dependency>
 ```
 
-```
+```gradle
 compile 'com.thedeanda:lorem:2.0'
 ```
 
