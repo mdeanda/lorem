@@ -5,10 +5,25 @@ An extremely useful Lorem Ipsum generator for Java!
 
 ### Getting Started:
 
+You can get the latest release via maven:
+```xml
+<dependency>
+	<groupId>com.thedeanda</groupId>
+	<artifactId>lorem</artifactId>
+	<version>2.0</version>
+</dependency>
+```
+
+Alternatively, you can add this to gradle:
+```gradle
+compile 'com.thedeanda:lorem:2.0'
+```
+
+Now prepare your implementation:
 ```java
 Lorem lorem = LoremIpsum.getInstance();
 ```
-lorem is an interface to leave room for alternative implementations because we can never have enough lorem!
+
 
 
 
@@ -101,24 +116,4 @@ Generates a 5-digit zip code
 lorem.getCountry();
 ```
 Generates a country name
-
-
-
-
-### Installation:
-
-You can get the latest release via maven.
-
-```xml
-<dependency>
-	<groupId>com.thedeanda</groupId>
-	<artifactId>lorem</artifactId>
-	<version>2.0</version>
-</dependency>
-```
-
-```gradle
-compile 'com.thedeanda:lorem:2.0'
-```
-
 
