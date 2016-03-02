@@ -14,7 +14,7 @@ public class LoremSeedTest {
 
 	@Before
 	public void init() {
-		lorem = LoremIpsum.getInstance(99l);
+		lorem = new LoremIpsum(99l);
 	}
 
 	@Test
