@@ -21,7 +21,7 @@ apply plugin: 'pmd'
 apply plugin: 'findbugs'
 
 group = 'com.thedeanda'
-version = '2.1-SNAPSHOT'
+version = '2.1'
 description = "a lorem ipsum generator"
 
 sourceCompatibility = 1.7
