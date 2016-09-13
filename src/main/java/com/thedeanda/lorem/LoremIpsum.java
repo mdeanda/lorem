@@ -152,7 +152,7 @@ public class LoremIpsum implements Lorem {
 		sb.append(getLastName().toLowerCase());
 		sb.append("@example.com");
 
-		return sb.toString();
+		return sb.toString().replace(' ', '.');
 	}
 
 	/*
