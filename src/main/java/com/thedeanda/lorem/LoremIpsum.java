@@ -63,7 +63,7 @@ public class LoremIpsum implements Lorem {
 		if (instance == null) {
 			synchronized (LoremIpsum.class) {
 				if (instance == null) {
-					instance = new LoremIpsum(null);
+					instance = new LoremIpsum(new Random());
 				}
 			}
 		}
@@ -71,15 +71,16 @@ public class LoremIpsum implements Lorem {
 	}
 
 	public LoremIpsum() {
-		this(null);
+		this(new Random());
+	}
+	
+	public LoremIpsum(Long seed) {
+		this(seed == null ? new Random() : new Random(seed));
 	}
 
-	public LoremIpsum(Long seed) {
-		if (seed == null) {
-			this.random = new Random();
-		} else {
-			this.random = new Random(seed);
-		}
+	public LoremIpsum(Random random) {
+		this.random = random;
+		
 		words = readLines("lorem.txt");
 		maleNames = readLines("male_names.txt");
 		femaleNames = readLines("female_names.txt");
