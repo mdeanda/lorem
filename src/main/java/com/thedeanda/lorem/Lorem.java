@@ -1,5 +1,7 @@
 package com.thedeanda.lorem;
 
+import java.util.Date;
+
 /**
  * The MIT License (MIT)
  * 
@@ -68,5 +70,11 @@ public interface Lorem {
 	public String getStateFull();
 
 	public String getZipCode();
+
+	public Date getFutureDate();
+
+	public Date getDate();
+
+	public Date getPastDate();
 
 }

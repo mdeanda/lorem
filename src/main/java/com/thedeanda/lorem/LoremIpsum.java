@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -420,5 +421,22 @@ public class LoremIpsum implements Lorem {
 			sb.append(random.nextInt(10));
 		}
 		return sb.toString();
+	}
+
+	@Override
+	public Date getFutureDate() {
+		Date now = new Date();
+		long offset = (long) random.nextFloat() * (Long.MAX_VALUE - now.getTime());
+		return new Date(now.getTime() + offset);
+	}
+
+	@Override
+	public Date getDate() {
+		return new Date((long) random.nextFloat() * Long.MAX_VALUE);
+	}
+
+	@Override
+	public Date getPastDate() {
+		return new Date((long)(random.nextFloat() * (new Date().getTime())));
 	}
 }
