@@ -3,6 +3,10 @@ package com.thedeanda.lorem;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.Temporal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -421,4 +425,21 @@ public class LoremIpsum implements Lorem {
 		}
 		return sb.toString();
 	}
+
+	@Override
+	public LocalDateTime getPriorDate(Duration maxDurationBeforeNow) {
+		LocalDateTime now = LocalDateTime.now();
+		long offset = (long) (maxDurationBeforeNow.getSeconds() * random.nextDouble());
+		LocalDateTime result = now.minusSeconds(offset);
+		return result;
+	}
+
+	@Override
+	public LocalDateTime getFutureDate(Duration maxDurationFromNow) {
+		LocalDateTime now = LocalDateTime.now();
+		long offset = (long) (maxDurationFromNow.getSeconds() * random.nextDouble());
+		LocalDateTime result = now.plusSeconds(offset);
+		return result;
+	}
+
 }

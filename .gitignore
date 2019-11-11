@@ -5,3 +5,5 @@
 /bin/
 /.gradle/
 /build/
+/.idea/
+/lorem.iml

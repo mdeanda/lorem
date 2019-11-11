@@ -8,6 +8,9 @@ import org.junit.Test;
 import com.thedeanda.lorem.Lorem;
 import com.thedeanda.lorem.LoremIpsum;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+
 /**
  * The MIT License (MIT)
  * 
@@ -122,6 +125,28 @@ public class LoremTest {
 	public void testZip() {
 		String s = lorem.getZipCode();
 		notBlank(s);
+	}
+
+	@Test
+	public void testPriorDate() {
+		LocalDateTime now = LocalDateTime.now().plusSeconds(1);
+		LocalDateTime later = now.minusMinutes(65);
+		for (int i=0; i<100; i++) {
+			LocalDateTime fd = lorem.getPriorDate(Duration.ofHours(1));
+			assertTrue(now.isAfter(fd));
+			assertTrue(later.isBefore(fd));
+		}
+	}
+
+	@Test
+	public void testFutureDate() {
+		LocalDateTime now = LocalDateTime.now().minusSeconds(1);
+		LocalDateTime later = now.plusMinutes(65);
+		for (int i=0; i<100; i++) {
+			LocalDateTime fd = lorem.getFutureDate(Duration.ofHours(1));
+			assertTrue(now.isBefore(fd));
+			assertTrue(later.isAfter(fd));
+		}
 	}
 
 }

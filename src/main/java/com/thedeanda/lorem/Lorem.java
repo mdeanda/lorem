@@ -1,5 +1,8 @@
 package com.thedeanda.lorem;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+
 /**
  * The MIT License (MIT)
  * 
@@ -68,5 +71,9 @@ public interface Lorem {
 	public String getStateFull();
 
 	public String getZipCode();
+
+	public LocalDateTime getPriorDate(Duration maxDurationBeforeNow);
+
+	public LocalDateTime getFutureDate(Duration maxDurationFromNow);
 
 }
