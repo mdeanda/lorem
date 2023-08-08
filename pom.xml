@@ -9,7 +9,7 @@
 
 	<name>lorem</name>
 	<description>An extremely useful Lorem Ipsum generator for Java!</description>
-	<url>http://maven.apache.org</url>
+	<url>https://github.com/mdeanda/lorem</url>
 	<licenses>
 		<license>
 			<name>MIT License</name>
@@ -17,19 +17,22 @@
 			<distribution>repo</distribution>
 		</license>
 	</licenses>
+	<developers>
+		<developer>
+			<name>Miguel De Anda</name>
+			<email>miguel@thedeanda.com</email>
+			<organization>Github</organization>
+			<organizationUrl>https://github.com/mdeanda</organizationUrl>
+		</developer>
+	</developers>
 	<scm>
 		<connection>scm:git:git@github.com:mdeanda/lorem.git</connection>
 		<developerConnection>scm:git:git@github.com:mdeanda/lorem.git</developerConnection>
-		<url>git@github.com:mdeanda/lorem.git</url>
+		<url>https://github.com/mdeanda/lorem/tree/master</url>
 	</scm>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
-	<parent>
-		<groupId>org.sonatype.oss</groupId>
-		<artifactId>oss-parent</artifactId>
-		<version>7</version>
-	</parent>
 	<distributionManagement>
 		<snapshotRepository>
 			<id>ossrh</id>
