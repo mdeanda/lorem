@@ -4,7 +4,7 @@
 
 	<groupId>com.thedeanda</groupId>
 	<artifactId>lorem</artifactId>
-	<version>2.2-SNAPSHOT</version>
+	<version>2.2</version>
 	<packaging>jar</packaging>
 
 	<name>lorem</name>
