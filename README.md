@@ -117,3 +117,10 @@ lorem.getCountry();
 ```
 Generates a country name
 
+#### Custom Category
+
+```java
+lorem.getCustomValue("nouns");
+```
+Generates a random value from the seeded file value passed to the Lorem constructor.
+If the category is not loaded `CategoryNotExist` exception will be thrown

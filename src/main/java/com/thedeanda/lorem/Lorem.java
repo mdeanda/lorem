@@ -1,5 +1,7 @@
 package com.thedeanda.lorem;
 
+import com.thedeanda.lorem.exceptions.CategoryNotExist;
+
 import java.time.Duration;
 import java.time.LocalDateTime;
 
@@ -76,4 +78,5 @@ public interface Lorem {
 
 	public LocalDateTime getFutureDate(Duration maxDurationFromNow);
 
+	public String getCustomValue(String category) throws CategoryNotExist;
 }
