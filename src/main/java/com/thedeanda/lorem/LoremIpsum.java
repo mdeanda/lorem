@@ -292,7 +292,7 @@ public class LoremIpsum implements Lorem {
 				sb.append(first);
 
 				sb.append(getWords(2, 20, false));
-				sb.append(".  ");
+				sb.append(". ");
 			}
 			sb.append("\n");
 		}
