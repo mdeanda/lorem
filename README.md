@@ -10,13 +10,13 @@ You can get the latest release via maven:
 <dependency>
 	<groupId>com.thedeanda</groupId>
 	<artifactId>lorem</artifactId>
-	<version>2.1</version>
+	<version>2.2</version>
 </dependency>
 ```
 
 Alternatively, you can add this to gradle:
 ```gradle
-compile 'com.thedeanda:lorem:2.1'
+compile 'com.thedeanda:lorem:2.2'
 ```
 
 Now prepare your implementation:
