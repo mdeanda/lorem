@@ -1,29 +1,37 @@
 package com.thedeanda.lorem;
 
+import com.thedeanda.lorem.exceptions.CategoryNotExist;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.Map;
+import java.util.HashMap;
 
 /**
  * The MIT License (MIT)
- * 
+ *
  * Copyright (c) 2015 Miguel De Anda
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -31,14 +39,14 @@ import java.util.Random;
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
- * 
+ *
  * @author mdeanda
- * 
+ *
  */
 public class LoremIpsum implements Lorem {
 	/*
 	 * this command was useful:
-	 * 
+	 *
 	 * cat lorem.txt | sed -e 's/[,;.]//g' | sed -e 's/ /\n/g' | sed -e \
 	 * 'y/ABCDEFGHIJKLMNOPQRSTUVWXYZ/abcdefghijklmnopqrstuvwxyz/' | sort | \
 	 * uniq > lorem.txt.2
@@ -55,6 +63,7 @@ public class LoremIpsum implements Lorem {
 	private List<String> stateFull;
 	private List<String> cities;
 	private List<String> countries;
+	private Map<String, List<String>> customCategories;
 
 	private String[] URL_HOSTS = new String[] { "https://www.google.com/#q=%s",
 			"http://www.bing.com/search?q=%s",
@@ -75,14 +84,22 @@ public class LoremIpsum implements Lorem {
 	public LoremIpsum() {
 		this(new Random());
 	}
-	
+
 	public LoremIpsum(Long seed) {
 		this(seed == null ? new Random() : new Random(seed));
 	}
 
+	public LoremIpsum(Map<String, String> customCategToFile){
+		this(new Random(), customCategToFile);
+	}
+
 	public LoremIpsum(Random random) {
+		this(random, null);
+	}
+
+	public LoremIpsum(Random random, Map<String, String> customCategToFile){
 		this.random = random;
-		
+
 		words = readLines("lorem.txt");
 		maleNames = readLines("male_names.txt");
 		femaleNames = readLines("female_names.txt");
@@ -95,6 +112,19 @@ public class LoremIpsum implements Lorem {
 		stateAbbr = readLines("state_abbr.txt");
 		stateFull = readLines("state_full.txt");
 		countries = readLines("countries.txt");
+
+		if(customCategToFile != null && !customCategToFile.isEmpty()){
+			this.customCategories = loadCustomCategories(customCategToFile);
+		}
+	}
+
+	private Map<String, List<String>> loadCustomCategories(Map<String, String> customCategToFile){
+		Map<String, List<String>> customCateg = new HashMap<String, List<String>>();
+		for(String key : customCategToFile.keySet()){
+			List<String> customList = readExternalFiles(customCategToFile.get(key));
+			customCateg.put(key, customList);
+		}
+		return customCateg;
 	}
 
 	private List<String> readLines(String file) {
@@ -121,9 +151,33 @@ public class LoremIpsum implements Lorem {
 		return ret;
 	}
 
+	private List<String> readExternalFiles(String filePath){
+		List<String> ret = new ArrayList<String>();
+		BufferedReader br = null;
+		try{
+			Path path = Paths.get(filePath);
+			br = Files.newBufferedReader(path, StandardCharsets.UTF_8);
+			String line;
+			while((line = br.readLine()) != null){
+				ret.add(line.trim());
+			}
+		}catch(IOException ex){
+			ex.printStackTrace();
+		}finally {
+			if(br != null){
+				try {
+					br.close();
+				}catch (IOException ex){
+					ex.printStackTrace();
+				}
+			}
+		}
+		return ret;
+	}
+
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.thedeanda.lorem.Lorem#getCity()
 	 */
 	@Override
@@ -133,7 +187,7 @@ public class LoremIpsum implements Lorem {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.thedeanda.lorem.Lorem#getCountry()
 	 */
 	@Override
@@ -143,7 +197,7 @@ public class LoremIpsum implements Lorem {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.thedeanda.lorem.Lorem#getEmail()
 	 */
 	@Override
@@ -160,7 +214,7 @@ public class LoremIpsum implements Lorem {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.thedeanda.lorem.Lorem#getFirstName()
 	 */
 	@Override
@@ -170,7 +224,7 @@ public class LoremIpsum implements Lorem {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.thedeanda.lorem.Lorem#getFirstNameMale()
 	 */
 	@Override
@@ -180,7 +234,7 @@ public class LoremIpsum implements Lorem {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.thedeanda.lorem.Lorem#getFirstNameFemale()
 	 */
 	@Override
@@ -190,7 +244,7 @@ public class LoremIpsum implements Lorem {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.thedeanda.lorem.Lorem#getLastName()
 	 */
 	@Override
@@ -200,7 +254,7 @@ public class LoremIpsum implements Lorem {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.thedeanda.lorem.Lorem#getName()
 	 */
 	@Override
@@ -210,7 +264,7 @@ public class LoremIpsum implements Lorem {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.thedeanda.lorem.Lorem#getNameMale()
 	 */
 	@Override
@@ -220,7 +274,7 @@ public class LoremIpsum implements Lorem {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.thedeanda.lorem.Lorem#getNameFemale()
 	 */
 	@Override
@@ -230,7 +284,7 @@ public class LoremIpsum implements Lorem {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.thedeanda.lorem.Lorem#getTitle(int)
 	 */
 	@Override
@@ -240,7 +294,7 @@ public class LoremIpsum implements Lorem {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.thedeanda.lorem.Lorem#getTitle(int, int)
 	 */
 	@Override
@@ -259,7 +313,7 @@ public class LoremIpsum implements Lorem {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.thedeanda.lorem.Lorem#getHtmlParagraphs(int, int)
 	 */
 	@Override
@@ -276,7 +330,7 @@ public class LoremIpsum implements Lorem {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.thedeanda.lorem.Lorem#getParagraphs(int, int)
 	 */
 	@Override
@@ -301,7 +355,7 @@ public class LoremIpsum implements Lorem {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.thedeanda.lorem.Lorem#getUrl()
 	 */
 	@Override
@@ -320,7 +374,7 @@ public class LoremIpsum implements Lorem {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.thedeanda.lorem.Lorem#getWords(int)
 	 */
 	@Override
@@ -330,7 +384,7 @@ public class LoremIpsum implements Lorem {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.thedeanda.lorem.Lorem#getWords(int, int)
 	 */
 	@Override
@@ -364,7 +418,7 @@ public class LoremIpsum implements Lorem {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.thedeanda.lorem.Lorem#getPhone()
 	 */
 	@Override
@@ -392,7 +446,7 @@ public class LoremIpsum implements Lorem {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.thedeanda.lorem.Lorem#getStateAbbr()
 	 */
 	@Override
@@ -402,7 +456,7 @@ public class LoremIpsum implements Lorem {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.thedeanda.lorem.Lorem#getStateFull()
 	 */
 	@Override
@@ -412,7 +466,7 @@ public class LoremIpsum implements Lorem {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.thedeanda.lorem.Lorem#getZipCode()
 	 */
 	@Override
@@ -440,4 +494,15 @@ public class LoremIpsum implements Lorem {
 		return result;
 	}
 
+	@Override
+	public String getCustomValue(String categoryName) throws CategoryNotExist {
+		return getRandom(getCustomCategList(categoryName));
+	}
+
+	private List<String> getCustomCategList(String categoryName) throws CategoryNotExist {
+		if(this.customCategories == null || !this.customCategories.containsKey(categoryName)){
+			throw new CategoryNotExist(categoryName);
+		}
+		return this.customCategories.get(categoryName);
+	}
 }
